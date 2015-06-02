@@ -1,0 +1,4 @@
+[package]
+name = "anybar"
+version = "0.1.0"
+authors = ["Stephan Hügel <stephan.hugel.12@ucl.ac.uk>"]
