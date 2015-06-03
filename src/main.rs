@@ -20,7 +20,7 @@ fn read_message(socket: net::UdpSocket) -> Vec<u8> {
     drop(socket);
     let mut data;
     match result {
-        Ok((amt, src)) => {
+        Ok((amt, _)) => {
         data = Vec::from(&buf[0..amt]);
         },
     Err(err) => panic!("Read error: {}", err)
@@ -30,7 +30,7 @@ fn read_message(socket: net::UdpSocket) -> Vec<u8> {
 
 pub fn send_message(send_addr: net::SocketAddr, target: net::SocketAddr, data: Vec<u8>) {
     let socket = socket(send_addr);
-    let result = socket.send_to(&data, target);
+    let _ = socket.send_to(&data, target);
     drop(socket);
     // match result {
     //     Ok(amt) => println!("Sent {} bytes", amt),
