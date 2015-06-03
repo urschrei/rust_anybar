@@ -115,7 +115,11 @@ fn main() {
     };
 
     let mut message: Vec<u8> = Vec::new();
-    message.extend(to_send.as_bytes().iter().cloned());
+    message.extend(to_send
+        .as_bytes()
+        .iter()
+        .cloned()
+    );
     let ip = net::Ipv4Addr::new(127, 0, 0, 1);
     let listen_addr = net::SocketAddrV4::new(ip, 1738);
     let send_addr = net::SocketAddrV4::new(ip, 0);
