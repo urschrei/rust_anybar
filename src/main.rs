@@ -88,9 +88,7 @@ fn convert(inp: &str) -> String {
 }
 
 fn main() {
-    // get command-line input
-
-    // this waits on a prompt, so
+    // this waits on a prompt, so not what we want
     // http://stackoverflow.com/a/27973038/416626
     // use std::io;
     // use std::io::prelude::*;
@@ -103,14 +101,15 @@ fn main() {
     //     .unwrap()
     //     .trim()
     //     .to_string();
-
+    
+    // get command-line input
     // Strings do not live for the entire life of your program
     // http://stackoverflow.com/a/23977218/416626
     let args: Vec<String> = env::args().collect();
     let arg = args[1].clone();
     let intermediate: &str = &*arg;
 
-    // match input or bail out horribly
+    // match command-line input or bail out horribly
     let to_send = match convert(intermediate).as_ref() {
         "white" => "white".to_string(),
         "red" => "red".to_string(),
@@ -126,16 +125,18 @@ fn main() {
         "quit" => "quit".to_string(),
         _ => panic!("Unknown option!")
     };
-
+    // blam our control message into a vector 
     let mut message: Vec<u8> = Vec::new();
     message.extend(to_send
         .as_bytes()
         .iter()
         .cloned()
     );
+    // bind to the correct UDP port
     let ip = net::Ipv4Addr::new(127, 0, 0, 1);
     let listen_addr = net::SocketAddrV4::new(ip, 1738);
     let send_addr = net::SocketAddrV4::new(ip, 0);
+    // and send our message
     send_message(
         net::SocketAddr::V4(send_addr),
         net::SocketAddr::V4(listen_addr),
