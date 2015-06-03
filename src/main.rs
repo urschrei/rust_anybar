@@ -1,6 +1,7 @@
 use std::thread;
 use std::net;
 use std::env;
+use std::convert::AsRef;
 
 fn socket(listen_on: net::SocketAddr) -> net::UdpSocket {
     let attempt = net::UdpSocket::bind(listen_on);
@@ -74,6 +75,14 @@ mod test {
     }
 }
 
+fn convert(inp: &str) -> String {
+    let outp = inp
+        .chars()
+        .flat_map(char::to_lowercase)
+        .collect::<String>();
+    outp
+}
+
 fn main() {
     // get command-line input
 
@@ -98,7 +107,7 @@ fn main() {
     let intermediate: &str = &*arg;
 
     // match input or bail out horribly
-    let to_send = match intermediate {
+    let to_send = match convert(intermediate).as_ref() {
         "white" => "white".to_string(),
         "red" => "red".to_string(),
         "orange" => "orange".to_string(),
