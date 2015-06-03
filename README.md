@@ -9,7 +9,7 @@ This is an app for controlling the [Anybar](https://github.com/tonsky/AnyBar) ap
 
 # Running it
 `anybar_rs` assumes that Anybar is bound to localhost on UDP port 1738. You can alter this by changing the `listen_addr` value in the `main()` function within [main.rs](main.rs).  
-Call it like so: `anybar_rs [command]`, where `command` is one of the following:
+Call it like so: `anybar_rs [command]`, where `command` is one of the following (for the sake of practicality, uppercase and mixed-case input is accepted):
 
 - white
 - red
