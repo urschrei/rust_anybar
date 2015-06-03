@@ -1,3 +1,4 @@
+// UDP stuff adapted from http://illegalargumentexception.blogspot.co.uk/2015/05/rust-send-and-receive-on-localhost-with.html
 use std::thread;
 use std::net;
 use std::env;
@@ -76,6 +77,9 @@ mod test {
 }
 
 fn convert(inp: &str) -> String {
+    // to_lowercase is still unstable.
+    // This madness from IRC is the workaround
+    // works though
     let outp = inp
         .chars()
         .flat_map(char::to_lowercase)
