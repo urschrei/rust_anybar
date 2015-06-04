@@ -8,8 +8,10 @@ This is an app for controlling the [Anybar](https://github.com/tonsky/AnyBar) ap
 - Copy it into your `$PATH`.
 
 # Running it
-`anybar_rs` assumes that Anybar is bound to localhost on UDP port 1738. You can alter this by changing the `listen_addr` value in the `main()` function within [main.rs](main.rs).  
-Call it like so: `anybar_rs [command]`, where `command` is one of the following (for the sake of practicality, uppercase and mixed-case input is accepted):
+By default, `anybar_rs` assumes that Anybar is bound to localhost on UDP port 1738. Call it like so:  
+`anybar_rs [command]`
+
+Where `command` is one of the following:
 
 - white
 - red
@@ -23,6 +25,15 @@ Call it like so: `anybar_rs [command]`, where `command` is one of the following 
 - ?
 - !
 - quit
+
+(For the sake of practicality, uppercase and mixed-case input is accepted)
+## Specifying an alternate port
+You can send to a different port by calling the program with the `-p` option:  
+`anybar_rs -p [number] [command]`
+
+# TODO
+
+- [ ] make the `-p` option more robust to incorrect input
 
 # License
 MIT

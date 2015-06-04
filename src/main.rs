@@ -90,7 +90,7 @@ fn convert(inp: &str) -> String {
 }
 
 fn print_usage(program: &str, opts: Options) {
-    let brief = format!("Usage: {} [options]", program);
+    let brief = format!("Usage: {} [options] [command]", program);
     print!("{}", opts.usage(&brief));
 }
 
@@ -120,21 +120,22 @@ fn main() {
         Ok(m) => {m}
         Err(f) => {panic!(f.to_string())}
     };
-    let port = matches.opt_str("p").unwrap();
 
+    // check for -p argument, or use default value
+    let port = if matches.opt_present("p") {
+        matches.opt_str("p").unwrap()
+    } else {
+        "1738".to_string()
+    };
+    // gather non-option arguments
     let arg = if !matches.free.is_empty() {
         matches.free[0].clone()
     } else {
         print_usage(&program, opts);
         return;
     };
-
-
-
-
-    // let arg = args[1].clone();
     let intermediate: &str = &*arg;
-
+    
     // match command-line input or bail out horribly
     let to_send = match convert(intermediate).as_ref() {
         "white" => "white".to_string(),
@@ -160,7 +161,7 @@ fn main() {
     );
     // bind to the correct UDP port
     let ip = net::Ipv4Addr::new(127, 0, 0, 1);
-    let listen_addr = net::SocketAddrV4::new(ip, port);
+    let listen_addr = net::SocketAddrV4::new(ip, port.parse().unwrap());
     let send_addr = net::SocketAddrV4::new(ip, 0);
     // and send our message
     send_message(
