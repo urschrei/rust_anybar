@@ -7,3 +7,6 @@ repository = "https://github.com/urschrei/rust_anybar"
 readme = "README.md"
 keywords = ["Anybar"]
 license = "MIT"
+
+[dependencies]
+getopts = "0.2"

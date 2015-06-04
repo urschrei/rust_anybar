@@ -3,6 +3,8 @@ use std::thread;
 use std::net;
 use std::env;
 use std::convert::AsRef;
+extern crate getopts;
+use getopts::Options;
 
 fn socket(listen_on: net::SocketAddr) -> net::UdpSocket {
     let attempt = net::UdpSocket::bind(listen_on);
@@ -87,7 +89,13 @@ fn convert(inp: &str) -> String {
     outp
 }
 
+fn print_usage(program: &str, opts: Options) {
+    let brief = format!("Usage: {} [options]", program);
+    print!("{}", opts.usage(&brief));
+}
+
 fn main() {
+    let mut opts = Options::new();
     // this waits on a prompt, so not what we want
     // http://stackoverflow.com/a/27973038/416626
     // use std::io;
@@ -106,7 +114,25 @@ fn main() {
     // Strings do not live for the entire life of your program
     // http://stackoverflow.com/a/23977218/416626
     let args: Vec<String> = env::args().collect();
-    let arg = args[1].clone();
+    let program = args[0].clone();
+    opts.optopt("p", "", "Set destination UDP port", "PORT");
+    let matches = match opts.parse(&args[1..]) {
+        Ok(m) => {m}
+        Err(f) => {panic!(f.to_string())}
+    };
+    let port = matches.opt_str("p").unwrap();
+
+    let arg = if !matches.free.is_empty() {
+        matches.free[0].clone()
+    } else {
+        print_usage(&program, opts);
+        return;
+    };
+
+
+
+
+    // let arg = args[1].clone();
     let intermediate: &str = &*arg;
 
     // match command-line input or bail out horribly
@@ -134,7 +160,7 @@ fn main() {
     );
     // bind to the correct UDP port
     let ip = net::Ipv4Addr::new(127, 0, 0, 1);
-    let listen_addr = net::SocketAddrV4::new(ip, 1738);
+    let listen_addr = net::SocketAddrV4::new(ip, port);
     let send_addr = net::SocketAddrV4::new(ip, 0);
     // and send our message
     send_message(
