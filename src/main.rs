@@ -97,7 +97,7 @@ fn main() {
     // http://stackoverflow.com/a/23977218/416626
     let args: Vec<String> = env::args().collect();
     let program = args[0].clone();
-    opts.optopt("p", "", "Set destination UDP port. Must be an integer.", "PORT");
+    opts.optopt("p", "port", "Set destination UDP port. Must be an integer.", "PORT");
     let matches = match opts.parse(&args[1..]) {
         Ok(m) => {m}
         Err(f) => {panic!(f.to_string())}
