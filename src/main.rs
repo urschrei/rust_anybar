@@ -36,10 +36,6 @@ pub fn send_message(send_addr: net::SocketAddr, target: net::SocketAddr, data: V
     let socket = socket(send_addr);
     let _ = socket.send_to(&data, target);
     drop(socket);
-    // match result {
-    //     Ok(amt) => println!("Sent {} bytes", amt),
-    //     Err(err) => panic!("Write error: {}", err)
-    // }
 }
 
 pub fn listen(listen_on: net::SocketAddr) -> thread::JoinHandle<Vec<u8>> {
@@ -96,20 +92,6 @@ fn print_usage(program: &str, opts: Options) {
 
 fn main() {
     let mut opts = Options::new();
-    // this waits on a prompt, so not what we want
-    // http://stackoverflow.com/a/27973038/416626
-    // use std::io;
-    // use std::io::prelude::*;
-    // let stdin = io::stdin();
-    // let inp = stdin
-    //     .lock()
-    //     .lines()
-    //     .next()
-    //     .unwrap()
-    //     .unwrap()
-    //     .trim()
-    //     .to_string();
-    
     // get command-line input
     // Strings do not live for the entire life of your program
     // http://stackoverflow.com/a/23977218/416626
@@ -120,8 +102,14 @@ fn main() {
         Ok(m) => {m}
         Err(f) => {panic!(f.to_string())}
     };
-    // TODO: handle panicking non-integer conversions via a match here
+    // Get port from the option, or specify the default
     let port = matches.opt_str("p").unwrap_or("1738".to_string());
+    // cast to int or bail out horribly
+    let numeric_port = match port.parse::<u16>().ok() {
+        Some(number) => number,
+        None => panic!("You must specify a numeric port")
+    };
+
     // gather non-option arguments
     let arg = if !matches.free.is_empty() {
         matches.free[0].clone()
@@ -157,7 +145,7 @@ fn main() {
     // bind to the correct UDP port
     let ip = net::Ipv4Addr::new(127, 0, 0, 1);
     // parse() gives us an int Result which we need to unwrap
-    let listen_addr = net::SocketAddrV4::new(ip, port.parse().unwrap());
+    let listen_addr = net::SocketAddrV4::new(ip, numeric_port);
     let send_addr = net::SocketAddrV4::new(ip, 0);
     // and send our message
     send_message(

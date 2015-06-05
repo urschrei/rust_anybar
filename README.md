@@ -9,7 +9,9 @@ This is an app for controlling the [Anybar](https://github.com/tonsky/AnyBar) ap
 
 # Running it
 By default, `anybar_rs` assumes that Anybar is bound to localhost on UDP port 1738. Call it like so:  
-`anybar_rs [command]`
+`anybar_rs [command]`  
+You can send to a different port by calling the program with the `-p` option:  
+`anybar_rs -p [number] [command]`
 
 Where `command` is one of the following:
 
@@ -28,12 +30,6 @@ Where `command` is one of the following:
 
 (For the sake of practicality, uppercase and mixed-case input is accepted)
 ## Specifying an alternate port
-You can send to a different port by calling the program with the `-p` option:  
-`anybar_rs -p [number] [command]`
-
-# TODO
-
-- [ ] make the `-p` option more robust to incorrect input
 
 # License
 MIT
