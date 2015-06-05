@@ -137,7 +137,10 @@ fn main() {
         "?" => "question".to_string(),
         "!" => "exclamation".to_string(),
         "quit" => "quit".to_string(),
-        _ => panic!("Unknown option!")
+        _ => {
+            print_usage(&program, opts);
+            return;
+        }
     };
     // blam our control message into a vector 
     let mut message: Vec<u8> = Vec::new();
