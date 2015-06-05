@@ -97,7 +97,7 @@ fn main() {
     // http://stackoverflow.com/a/23977218/416626
     let args: Vec<String> = env::args().collect();
     let program = args[0].clone();
-    opts.optopt("p", "", "Set destination UDP port", "PORT");
+    opts.optopt("p", "", "Set destination UDP port. Must be an integer.", "PORT");
     let matches = match opts.parse(&args[1..]) {
         Ok(m) => {m}
         Err(f) => {panic!(f.to_string())}
@@ -105,11 +105,16 @@ fn main() {
     // Get port from the option, or specify the default
     let port = matches.opt_str("p").unwrap_or("1738".to_string());
     // cast to int or bail out horribly
-    let numeric_port = match port.parse::<u16>().ok() {
-        Some(number) => number,
-        None => panic!("You must specify a numeric port")
+    let numeric_port = port.parse::<u16>();
+    // ensure we got an int, or set an error flag
+    let proceed = match numeric_port {
+        Ok(ref v) => true,
+        Err(ref e) => false
     };
-
+    if !proceed {
+        print_usage(&program, opts);
+        return;
+    }
     // gather non-option arguments
     let arg = if !matches.free.is_empty() {
         matches.free[0].clone()
@@ -145,7 +150,7 @@ fn main() {
     // bind to the correct UDP port
     let ip = net::Ipv4Addr::new(127, 0, 0, 1);
     // parse() gives us an int Result which we need to unwrap
-    let listen_addr = net::SocketAddrV4::new(ip, numeric_port);
+    let listen_addr = net::SocketAddrV4::new(ip, numeric_port.unwrap());
     let send_addr = net::SocketAddrV4::new(ip, 0);
     // and send our message
     send_message(
