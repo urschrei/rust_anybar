@@ -85,9 +85,14 @@ fn convert(inp: &str) -> String {
     outp
 }
 
-fn print_usage(program: &str, opts: Options) {
+fn print_usage(program: &str, opts: Options, ecode: i32) {
     let brief = format!("Usage: {} [options] [command]", program);
     print!("{}", opts.usage(&brief));
+    exit(ecode);
+}
+
+pub fn exit(code: i32) {
+    std::process::exit(code)
 }
 
 fn main() {
@@ -111,14 +116,14 @@ fn main() {
         Err(ref e) => false
     };
     if !proceed {
-        print_usage(&program, opts);
+        print_usage(&program, opts, 1);
         return;
     }
     // gather non-option arguments
     let arg = if !matches.free.is_empty() {
         matches.free[0].clone()
     } else {
-        print_usage(&program, opts);
+        print_usage(&program, opts, 0);
         return;
     };
     let intermediate: &str = &*arg;
@@ -138,7 +143,7 @@ fn main() {
         "!" => "exclamation".to_string(),
         "quit" => "quit".to_string(),
         _ => {
-            print_usage(&program, opts);
+            print_usage(&program, opts, 1);
             return;
         }
     };
