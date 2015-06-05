@@ -104,9 +104,8 @@ fn main() {
     };
     // Get port from the option, or specify the default
     let port = matches.opt_str("p").unwrap_or("1738".to_string());
-    // cast to int or bail out horribly
+    // cast to int and ensure it worked, or set an error flag and bail out
     let numeric_port = port.parse::<u16>();
-    // ensure we got an int, or set an error flag
     let proceed = match numeric_port {
         Ok(ref v) => true,
         Err(ref e) => false
@@ -149,7 +148,8 @@ fn main() {
     );
     // bind to the correct UDP port
     let ip = net::Ipv4Addr::new(127, 0, 0, 1);
-    // parse() gives us an int Result which we need to unwrap
+    // parse() gives us Result which we need to unwrap
+    // it's safe to unwrap here, cos we already checked success with 
     let listen_addr = net::SocketAddrV4::new(ip, numeric_port.unwrap());
     let send_addr = net::SocketAddrV4::new(ip, 0);
     // and send our message
