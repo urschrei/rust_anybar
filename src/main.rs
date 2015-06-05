@@ -120,13 +120,8 @@ fn main() {
         Ok(m) => {m}
         Err(f) => {panic!(f.to_string())}
     };
-
-    // check for -p argument, or use default value
-    let port = if matches.opt_present("p") {
-        matches.opt_str("p").unwrap()
-    } else {
-        "1738".to_string()
-    };
+    // TODO: handle panicking non-integer conversions via a match here
+    let port = matches.opt_str("p").unwrap_or("1738".to_string());
     // gather non-option arguments
     let arg = if !matches.free.is_empty() {
         matches.free[0].clone()
@@ -161,6 +156,7 @@ fn main() {
     );
     // bind to the correct UDP port
     let ip = net::Ipv4Addr::new(127, 0, 0, 1);
+    // parse() gives us an int Result which we need to unwrap
     let listen_addr = net::SocketAddrV4::new(ip, port.parse().unwrap());
     let send_addr = net::SocketAddrV4::new(ip, 0);
     // and send our message
