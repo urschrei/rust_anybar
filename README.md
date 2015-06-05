@@ -29,7 +29,6 @@ Where `command` is one of the following:
 - quit
 
 (For the sake of practicality, uppercase and mixed-case input is accepted)
-## Specifying an alternate port
 
 # License
 MIT
