@@ -88,12 +88,9 @@ fn convert(inp: &str) -> String {
 fn print_usage(program: &str, opts: Options, ecode: i32) {
     let brief = format!("Usage: {} [options] [command]", program);
     print!("{}", opts.usage(&brief));
-    exit(ecode);
+    std::process::exit(ecode);
 }
 
-pub fn exit(code: i32) {
-    std::process::exit(code)
-}
 
 fn main() {
     let mut opts = Options::new();
