@@ -125,7 +125,7 @@ fn main() {
     };
     let intermediate: &str = &*arg;
     
-    // match command-line input or bail out horribly
+    // match command-line input or print usage
     let to_send = match convert(intermediate).as_ref() {
         "white" => "white".to_string(),
         "red" => "red".to_string(),
@@ -154,7 +154,7 @@ fn main() {
     // bind to the correct UDP port
     let ip = net::Ipv4Addr::new(127, 0, 0, 1);
     // parse() gives us Result which we need to unwrap
-    // it's safe to unwrap here, cos we already checked success with 
+    // it's safe to unwrap here, cos we already checked success 
     let listen_addr = net::SocketAddrV4::new(ip, numeric_port.unwrap());
     let send_addr = net::SocketAddrV4::new(ip, 0);
     // and send our message
