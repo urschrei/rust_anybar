@@ -109,8 +109,8 @@ fn main() {
     // cast to int and ensure it worked, or set an error flag and bail out
     let numeric_port = port.parse::<u16>();
     let proceed = match numeric_port {
-        Ok(ref v) => true,
-        Err(ref e) => false
+        Ok(_) => true,
+        Err(_) => false
     };
     if !proceed {
         print_usage(&program, opts, 1);
