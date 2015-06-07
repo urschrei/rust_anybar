@@ -95,8 +95,6 @@ fn print_usage(program: &str, opts: Options, ecode: i32) {
 fn main() {
     let mut opts = Options::new();
     // get command-line input
-    // Strings do not live for the entire life of your program
-    // http://stackoverflow.com/a/23977218/416626
     let args: Vec<String> = env::args().collect();
     let program = args[0].clone();
     opts.optopt("p", "port", "Set destination UDP port. Must be an integer.", "PORT");
@@ -106,25 +104,21 @@ fn main() {
     };
     // Get port from the option, or specify the default
     let port = matches.opt_str("p").unwrap_or("1738".to_string());
-    // cast to int and ensure it worked, or set an error flag and bail out
+    // cast to int and ensure it worked, or set an error flag
     let numeric_port = port.parse::<u16>();
     let proceed = match numeric_port {
         Ok(_) => true,
         Err(_) => false
     };
-    if !proceed {
-        print_usage(&program, opts, 1);
-        return;
-    }
-    // gather non-option arguments
-    let arg = if !matches.free.is_empty() {
+    let arg = if !matches.free.is_empty() && proceed {
         matches.free[0].clone()
     } else {
-        print_usage(&program, opts, 0);
+        print_usage(&program, opts, 1);
         return;
     };
+    // Strings do not live for the entire life of your program
+    // http://stackoverflow.com/a/23977218/416626
     let intermediate: &str = &*arg;
-    
     // match command-line input or print usage
     let to_send = match convert(intermediate).as_ref() {
         "white" => "white".to_string(),
