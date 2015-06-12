@@ -45,24 +45,21 @@ fn main() {
     // get command-line input
     let args: Vec<String> = env::args().collect();
     let program = args[0].clone();
-    opts.optopt("p", "port", "Set destination UDP port. Must be an integer.", "PORT");
+    opts.optopt("p", "port", "Set destination UDP port. Input must be 0 – 65535", "PORT");
     let matches = match opts.parse(&args[1..]) {
         Ok(m) => {m}
         Err(f) => {panic!(f.to_string())}
     };
     // Get port from the option, or specify the default
     let port = matches.opt_str("p").unwrap_or("1738".to_string());
-    // cast to int and ensure it worked, or set an error flag
+    // cast to int and ensure it worked
     let numeric_port = port.parse::<u16>();
-    let proceed = match numeric_port {
-        Ok(_) => true,
-        Err(_) => false
-    };
-    let arg = if !matches.free.is_empty() && proceed {
-        matches.free[0].clone()
-    } else {
-        print_usage(&program, opts, 1);
-        return;
+    let arg = match &numeric_port {
+        &Ok(_) => matches.free[0].clone(),
+        &Err(_) => {
+                    print_usage(&program, opts, 1);
+                    return;
+        }
     };
     // Strings do not live for the entire life of your program
     // http://stackoverflow.com/a/23977218/416626
