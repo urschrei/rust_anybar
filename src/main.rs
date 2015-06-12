@@ -23,11 +23,15 @@ pub fn send_message(send_addr: net::SocketAddr, target: net::SocketAddr, data: V
     drop(socket);
 }
 
-fn convert(inp: &str) -> String {
+fn convert(inp: String) -> String {
     // to_lowercase is still unstable.
     // This madness from IRC is the workaround
     // works though
-    let outp = inp
+
+    // Strings do not live for the entire life of your program
+    // http://stackoverflow.com/a/23977218/416626
+    let intermediate: &str = &*inp;
+    let outp = intermediate
         .chars()
         .flat_map(char::to_lowercase)
         .collect::<String>();
@@ -57,15 +61,12 @@ fn main() {
     let arg = match &numeric_port {
         &Ok(_) => matches.free[0].clone(),
         &Err(_) => {
-                    print_usage(&program, opts, 1);
-                    return;
+            print_usage(&program, opts, 1);
+            return;
         }
     };
-    // Strings do not live for the entire life of your program
-    // http://stackoverflow.com/a/23977218/416626
-    let intermediate: &str = &*arg;
     // match command-line input or print usage
-    let to_send = match convert(intermediate).as_ref() {
+    let to_send = match convert(arg).as_ref() {
         "white" => "white".to_string(),
         "red" => "red".to_string(),
         "orange" => "orange".to_string(),
