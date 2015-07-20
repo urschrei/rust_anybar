@@ -9,10 +9,8 @@ fn socket(listen_on: net::SocketAddr) -> net::UdpSocket {
     let attempt = net::UdpSocket::bind(listen_on);
     let mut socket;
     match attempt {
-        Ok(sock) => {
-            socket = sock;
-        },
-    Err(err) => panic!("Could not bind: {}", err)
+        Ok(sock) => { socket = sock; },
+        Err(err) => panic!("Could not bind: {}", err)
     }
     socket
 }
@@ -52,7 +50,7 @@ fn main() {
     opts.optopt("p", "port", "Set destination UDP port. Input must be 0 – 65535", "PORT");
     let matches = match opts.parse(&args[1..]) {
         Ok(m) => {m}
-        Err(f) => {panic!(f.to_string())}
+        Err(f) => { panic!(f.to_string()) }
     };
     // Get port from the option, or specify the default
     let port = matches.opt_str("p").unwrap_or("1738".to_string());
