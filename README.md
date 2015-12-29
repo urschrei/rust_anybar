@@ -41,7 +41,7 @@ Where `COMMAND` is one of the following:
 Being a stateless protocol, UDP provides no mechanism for checking whether its datagrams arrive.
 
 - If the UDP datagram is succesfully *sent*, `anybar_rs` will exit with code `0`.
-- An unknown command, or incorrect usage of `-p` will print usage and exit with code `1`.
+- Unknown flags, options, or an unknown `command` will print the usage and exit with code `1`.
 
 # License
 MIT
