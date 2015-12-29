@@ -22,10 +22,6 @@ pub fn send_message(send_addr: net::SocketAddr, target: net::SocketAddr, data: V
     drop(socket);
 }
 
-fn convert(inp: String) -> String {
-    let outp = inp.to_lowercase();
-    outp
-}
 
 fn main() {
     let command_vals = ["white", "red", "orange", "yellow", "green", "cyan", "blue", "purple",
@@ -43,7 +39,7 @@ fn main() {
                                .required(true))
                       .get_matches();
     let numeric_port = value_t!(matches.value_of("PORT"), u16).unwrap_or(1738);
-    let to_send = convert(matches.value_of("COMMAND").unwrap().to_string());
+    let to_send = matches.value_of("COMMAND").unwrap().to_string().to_lowercase();
     // blam our control message into a vector
     let mut message: Vec<u8> = Vec::new();
     message.extend(to_send.as_bytes()
