@@ -23,7 +23,7 @@ pub fn send_message(send_addr: net::SocketAddr, target: net::SocketAddr, data: V
 }
 
 fn convert(inp: String) -> String {
-        let outp = inp.to_lowercase();
+    let outp = inp.to_lowercase();
     outp
 }
 
