@@ -35,17 +35,15 @@ fn main() {
                       .author("Stephan Hügel <urschrei@gmail.com>")
                       .about("A Rust command-line client for Anybar")
                       .args_from_usage("-p --port=[PORT] 'Set destination UDP port. Input must \
-                                        be 0 – 65535")
+                                        be 0 – 65535, and defaults to 17388")
                       .arg(Arg::with_name("COMMAND")
                                .help("The command you wish to send to Anybar")
                                .index(1)
                                .possible_values(&command_vals)
                                .required(true))
                       .get_matches();
-    let port = matches.value_of("PORT").unwrap_or("1738");
+    let numeric_port = value_t!(matches.value_of("PORT"), u16).unwrap_or(1738);
     let to_send = convert(matches.value_of("COMMAND").unwrap().to_string());
-    // // cast to int and ensure it worked
-    let numeric_port = port.parse::<u16>();
     // blam our control message into a vector
     let mut message: Vec<u8> = Vec::new();
     message.extend(to_send.as_bytes()
@@ -55,7 +53,7 @@ fn main() {
     let ip = net::Ipv4Addr::new(127, 0, 0, 1);
     // parse() gives us Result which we need to unwrap
     // it's safe to unwrap here, cos we already checked success
-    let listen_addr = net::SocketAddrV4::new(ip, numeric_port.unwrap());
+    let listen_addr = net::SocketAddrV4::new(ip, numeric_port);
     let send_addr = net::SocketAddrV4::new(ip, 0);
     // and send our message
     send_message(net::SocketAddr::V4(send_addr),
