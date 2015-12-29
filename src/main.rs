@@ -23,16 +23,7 @@ pub fn send_message(send_addr: net::SocketAddr, target: net::SocketAddr, data: V
 }
 
 fn convert(inp: String) -> String {
-    // to_lowercase is still unstable.
-    // This madness from IRC is the workaround
-    // works though
-
-    // Strings do not live for the entire life of your program
-    // http://stackoverflow.com/a/23977218/416626
-    let intermediate: &str = &*inp;
-    let outp = intermediate.chars()
-                           .flat_map(char::to_lowercase)
-                           .collect::<String>();
+        let outp = inp.to_lowercase();
     outp
 }
 
