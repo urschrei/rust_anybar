@@ -10,11 +10,18 @@
 
 # Usage
 By default, `anybar_rs` assumes that Anybar is bound to localhost on UDP port 1738. Call it like so:  
-`anybar_rs [command]`  
-You can send to a different port by calling the program with the `-p` or `--port` option:  
-`anybar_rs -p --port [number] [command]`
+`anybar_rs [FLAGS] [OPTIONS] <COMMAND>`  
+**FLAGS**:  
+    `-h`, `--help`       Prints help information  
+    `-V`, `--version`    Prints version information  
 
-Where `command` is one of the following:
+**OPTIONS**:  
+    `-p`, `--port` <PORT>    Set destination UDP port. Input must be 0 – 6553, and defaults to 1738  
+
+**ARGS**:  
+    `COMMAND`    The command you wish to send to Anybar  
+
+Where `COMMAND` is one of the following:
 
 - white
 - red
@@ -29,7 +36,6 @@ Where `command` is one of the following:
 - !
 - quit
 
-(For the sake of practicality, uppercase and mixed-case input is accepted)
 
 # Exit codes
 Being a stateless protocol, UDP provides no mechanism for checking whether its datagrams arrive.
