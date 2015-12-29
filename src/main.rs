@@ -1,9 +1,8 @@
 // UDP stuff adapted from http://illegalargumentexception.blogspot.co.uk/2015/05/rust-send-and-receive-on-localhost-with.html
 use std::net;
-use std::env;
-use std::convert::AsRef;
-extern crate getopts;
-use getopts::Options;
+#[macro_use]
+extern crate clap;
+use clap::{Arg, App};
 
 fn socket(listen_on: net::SocketAddr) -> net::UdpSocket {
     let attempt = net::UdpSocket::bind(listen_on);
@@ -37,55 +36,25 @@ fn convert(inp: String) -> String {
     outp
 }
 
-fn print_usage(program: &str, opts: Options, ecode: i32) {
-    let brief = format!("Usage: {} [options] [command]", program);
-    print!("{}", opts.usage(&brief));
-    std::process::exit(ecode);
-}
-
 fn main() {
-    let mut opts = Options::new();
-    // get command-line input
-    let args: Vec<String> = env::args().collect();
-    let program = args[0].clone();
-    opts.optopt("p",
-                "port",
-                "Set destination UDP port. Input must be 0 – 65535",
-                "PORT");
-    let matches = match opts.parse(&args[1..]) {
-        Ok(m) => m,
-        Err(f) => panic!(f.to_string()),
-    };
-    // Get port from the option, or specify the default
-    let port = matches.opt_str("p").unwrap_or("1738".to_string());
-    // cast to int and ensure it worked
+    let command_vals = ["white", "red", "orange", "yellow", "green", "cyan", "blue", "purple",
+                        "black", "?", "!", "quit"];
+    let matches = App::new("rust_anybar")
+                      .version(&crate_version!()[..])
+                      .author("Stephan Hügel <urschrei@gmail.com>")
+                      .about("A Rust command-line client for Anybar")
+                      .args_from_usage("-p --port=[PORT] 'Set destination UDP port. Input must \
+                                        be 0 – 65535")
+                      .arg(Arg::with_name("COMMAND")
+                               .help("The command you wish to send to Anybar")
+                               .index(1)
+                               .possible_values(&command_vals)
+                               .required(true))
+                      .get_matches();
+    let port = matches.value_of("PORT").unwrap_or("1738");
+    let to_send = convert(matches.value_of("COMMAND").unwrap().to_string());
+    // // cast to int and ensure it worked
     let numeric_port = port.parse::<u16>();
-    let arg = match &numeric_port {
-        &Ok(_) => matches.free[0].clone(),
-        &Err(_) => {
-            print_usage(&program, opts, 1);
-            return;
-        }
-    };
-    // match command-line input or print usage
-    let to_send = match convert(arg).as_ref() {
-        "white" => "white".to_string(),
-        "red" => "red".to_string(),
-        "orange" => "orange".to_string(),
-        "yellow" => "yellow".to_string(),
-        "green" => "green".to_string(),
-        "cyan" => "cyan".to_string(),
-        "blue" => "blue".to_string(),
-        "purple" => "purple".to_string(),
-        "black" => "black".to_string(),
-        "?" => "question".to_string(),
-        "!" => "exclamation".to_string(),
-        "quit" => "quit".to_string(),
-        _ => {
-            print_usage(&program, opts, 1);
-            return;
-        }
-    };
     // blam our control message into a vector
     let mut message: Vec<u8> = Vec::new();
     message.extend(to_send.as_bytes()
