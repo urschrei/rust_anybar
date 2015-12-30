@@ -47,8 +47,6 @@ fn main() {
                           .cloned());
     // bind to the correct UDP port
     let ip = net::Ipv4Addr::new(127, 0, 0, 1);
-    // parse() gives us Result which we need to unwrap
-    // it's safe to unwrap here, cos we already checked success
     let listen_addr = net::SocketAddrV4::new(ip, numeric_port);
     let send_addr = net::SocketAddrV4::new(ip, 0);
     // and send our message
