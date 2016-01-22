@@ -1,9 +1,17 @@
 # Description
 `anybar_rs` is a command-line app for controlling the [Anybar](https://github.com/tonsky/AnyBar) application.
 
-# Building
+# Installation
+- [Install Rust](https://www.rust-lang.org/downloads.html) or [Multirust](https://github.com/brson/multirust)
+- Ensure that the Cargo binary location is in your `$PATH`:
+    - e.g. `/Users/urschrei/.cargo/bin`
+    - You can specify an alternate location by passing `--root DIR` to `cargo install`
+- Run `cargo install anybar_rs`
+- The binary should now be available to use. To check, run `anybar_rs --help`.
 
-- Ensure you've installed Rust 1.x and Cargo, and they're in your `$PATH`
+# Building from Source
+- [Install Rust](https://www.rust-lang.org/downloads.html) or [Multirust](https://github.com/brson/multirust), and ensure that they're in your `$PATH`
+- Clone this project
 - Run `cargo build --release` from the project root
 - The binary will be available as `target/release/anybar_rs`
 - Copy it into your `$PATH`.
