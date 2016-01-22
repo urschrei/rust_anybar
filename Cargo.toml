@@ -1,6 +1,6 @@
 [package]
 name = "anybar_rs"
-version = "0.9.6"
+version = "0.9.7"
 authors = ["Stephan Hügel <stephan.hugel.12@ucl.ac.uk>"]
 description = "A Rust application for controlling Anybar"
 repository = "https://github.com/urschrei/rust_anybar"
@@ -10,3 +10,6 @@ license = "MIT"
 
 [dependencies]
 clap = "1.5.5"
+
+[[bin]]
+name = "anybar_rs"
