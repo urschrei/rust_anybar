@@ -9,4 +9,4 @@ keywords = ["Anybar"]
 license = "MIT"
 
 [dependencies]
-clap = "1.5.4"
+clap = "1.5.5"
