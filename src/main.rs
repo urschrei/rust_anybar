@@ -39,7 +39,7 @@ fn main() {
                                .required(true))
                       .get_matches();
     let numeric_port = value_t!(matches.value_of("PORT"), u16).unwrap_or(1738);
-    let to_send = matches.value_of("COMMAND").unwrap().to_string().to_lowercase();
+    let to_send = matches.value_of("COMMAND").unwrap().to_owned().to_lowercase();
     // blam our control message into a vector
     let mut message: Vec<u8> = Vec::new();
     message.extend(to_send.as_bytes()
