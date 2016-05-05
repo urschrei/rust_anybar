@@ -31,7 +31,7 @@ fn main() {
                       .author("Stephan Hügel <urschrei@gmail.com>")
                       .about("A Rust command-line client for Anybar")
                       .args_from_usage("-p --port=[PORT] 'Set destination UDP port. Input must \
-                                        be 0 – 65535, and defaults to 17388")
+                                        be 0 – 65535, and defaults to 1738")
                       .arg(Arg::with_name("COMMAND")
                                .help("The command you wish to send to Anybar")
                                .index(1)
