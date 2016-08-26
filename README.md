@@ -52,7 +52,3 @@ Being a stateless protocol, UDP provides no mechanism for checking whether its d
 
 # License
 MIT
-
-# And also
-[![witnessme](witnessme.gif)]( "SHINY AND CHROME")
-
