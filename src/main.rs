@@ -27,17 +27,17 @@ fn main() {
     let command_vals = ["white", "red", "orange", "yellow", "green", "cyan", "blue", "purple",
                         "black", "?", "!", "quit"];
     let matches = App::new("rust_anybar")
-                      .version(&crate_version!()[..])
-                      .author("Stephan Hügel <urschrei@gmail.com>")
-                      .about("A Rust command-line client for Anybar")
-                      .args_from_usage("-p --port=[PORT] 'Set destination UDP port. Input must \
-                                        be 0 – 65535, and defaults to 17388")
-                      .arg(Arg::with_name("COMMAND")
-                               .help("The command you wish to send to Anybar")
-                               .index(1)
-                               .possible_values(&command_vals)
-                               .required(true))
-                      .get_matches();
+        .version(&crate_version!()[..])
+        .author("Stephan Hügel <urschrei@gmail.com>")
+        .about("A Rust command-line client for Anybar")
+        .args_from_usage("-p --port=[PORT] 'Set destination UDP port. Input must be 0 – 65535, \
+                          and defaults to 17388")
+        .arg(Arg::with_name("COMMAND")
+            .help("The command you wish to send to Anybar")
+            .index(1)
+            .possible_values(&command_vals)
+            .required(true))
+        .get_matches();
     // bind to the correct UDP port
     let numeric_port = value_t!(matches.value_of("PORT"), u16).unwrap_or(1738);
     // it's safe to unwrap here, cos we already checked success
