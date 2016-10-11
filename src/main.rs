@@ -24,7 +24,7 @@ pub fn send_message(send_addr: net::SocketAddr, target: net::SocketAddr, data: &
 
 fn main() {
     let command_vals = ["white", "red", "orange", "yellow", "green", "cyan", "blue", "purple",
-                        "black", "?", "!", "quit"];
+                        "black", "question", "exclamation", "quit"];
     let matches = App::new("rust_anybar")
         .version(&crate_version!()[..])
         .author("Stephan Hügel <urschrei@gmail.com>")
