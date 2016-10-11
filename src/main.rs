@@ -41,7 +41,7 @@ fn main() {
     // bind to the correct UDP port
     let numeric_port = value_t!(matches.value_of("PORT"), u16).unwrap_or(1738);
     // it's safe to unwrap here, cos we already checked success
-    let to_send = matches.value_of("COMMAND").unwrap().to_lowercase();
+    let to_send = matches.value_of("COMMAND").unwrap();
     let ip = net::Ipv4Addr::new(127, 0, 0, 1);
     let listen_addr = net::SocketAddrV4::new(ip, numeric_port);
     let send_addr = net::SocketAddrV4::new(ip, 0);
