@@ -39,8 +39,8 @@ Where `COMMAND` is one of the following:
 - blue
 - purple
 - black
-- ?
-- !
+- question
+- exclamation
 - quit
 
 
