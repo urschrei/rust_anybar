@@ -17,8 +17,7 @@ fn socket(listen_on: net::SocketAddr) -> net::UdpSocket {
 }
 
 pub fn send_message(send_addr: net::SocketAddr, target: net::SocketAddr, data: &[u8]) {
-    let socket = socket(send_addr);
-    let _ = socket.send_to(data, target);
+    let _ = socket(send_addr).send_to(data, target);
 }
 
 fn main() {
