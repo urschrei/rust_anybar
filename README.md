@@ -4,12 +4,11 @@
 `anybar_rs` is a command-line app for controlling the [Anybar](https://github.com/tonsky/AnyBar) application.
 
 # Installation
-
+- Install Rust and Cargo. Using [rustup.rs](https://www.rustup.rs) is the easiest way to do this
 - Run `cargo install anybar_rs`
 - The binary should now be available to use. To check, run `anybar_rs --help`.
 
 # Building from Source
-- Install Rust ([rustup.rs](https://www.rustup.rs) is the easiest way)
 - Clone this project
 - Run `cargo build --release` from the project root
 - The binary will be available as `target/release/anybar_rs`
