@@ -33,7 +33,7 @@ fn main() {
                         "question",
                         "exclamation",
                         "quit"];
-    let matches = App::new("rust_anybar")
+    let command_params = App::new("rust_anybar")
         .version(&crate_version!()[..])
         .author("Stephan Hügel <urschrei@gmail.com>")
         .about("A Rust command-line client for Anybar")
@@ -46,9 +46,9 @@ fn main() {
             .required(true))
         .get_matches();
     // bind to the correct UDP port
-    let numeric_port = value_t!(matches.value_of("PORT"), u16).unwrap_or(1738);
+    let numeric_port = value_t!(command_params.value_of("PORT"), u16).unwrap_or(1738);
     // it's safe to unwrap here, cos we already checked success
-    let to_send = matches.value_of("COMMAND").unwrap();
+    let to_send = command_params.value_of("COMMAND").unwrap();
     let ip = net::Ipv4Addr::new(127, 0, 0, 1);
     let listen_addr = net::SocketAddrV4::new(ip, numeric_port);
     let send_addr = net::SocketAddrV4::new(ip, 0);
