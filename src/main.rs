@@ -1,6 +1,5 @@
 // UDP stuff adapted from http://illegalargumentexception.blogspot.co.uk/2015/05/rust-send-and-receive-on-localhost-with.html
 use std::net::{SocketAddr, SocketAddrV4, Ipv4Addr, UdpSocket};
-use std::process::exit;
 use std::thread;
 #[macro_use]
 extern crate clap;
