@@ -1,4 +1,4 @@
-[![](https://img.shields.io/crates/v/anybar_rs.svg)](https://crates.io/crates/anybar_rs) [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](license.txt)  
+[![](https://img.shields.io/crates/v/anybar_rs.svg)](https://crates.io/crates/anybar_rs) [![MIT Licensed](https://img.shields.io/github/license/mashape/apistatus.svg)](license.txt)  
 
 # Description
 `anybar_rs` is a command-line app for controlling the [Anybar](https://github.com/tonsky/AnyBar) application.
