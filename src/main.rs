@@ -12,7 +12,9 @@ fn socket(listen_on: SocketAddr) -> UdpSocket {
 }
 
 fn send_message(send_addr: SocketAddr, target: SocketAddr, data: &[u8]) {
-    socket(send_addr).send_to(data, target).expect("Couldn't send message.");
+    socket(send_addr)
+        .send_to(data, target)
+        .expect("Couldn't send message.");
 }
 
 fn main() {
@@ -35,20 +37,15 @@ fn main() {
         .args_from_usage("-p --port=[PORT] 'Set destination UDP port. Input must be 0 – 65535, \
                           and defaults to 17388")
         .arg(Arg::with_name("COMMAND")
-            .help("The command you wish to send to Anybar")
-            .index(1)
-            .possible_values(&command_vals)
-            .required(true))
+                 .help("The command you wish to send to Anybar")
+                 .index(1)
+                 .possible_values(&command_vals)
+                 .required(true))
         .get_matches();
     // bind to the correct UDP port
     let numeric_port = value_t!(command_params.value_of("PORT"), u16).unwrap_or(1738);
-    // it's safe to unwrap here, cos we already checked success
-    let to_send = command_params.value_of("COMMAND").unwrap();
-    let ip = Ipv4Addr::new(127, 0, 0, 1);
-    let listen_addr = SocketAddrV4::new(ip, numeric_port);
-    let send_addr = SocketAddrV4::new(ip, 0);
     // and send our message
-    send_message(SocketAddr::V4(send_addr),
-                 SocketAddr::V4(listen_addr),
-                 to_send.as_bytes());
+    send_message(SocketAddr::V4(SocketAddrV4::new(Ipv4Addr::new(127, 0, 0, 1), 0)),
+                 SocketAddr::V4(SocketAddrV4::new(Ipv4Addr::new(127, 0, 0, 1), numeric_port)),
+                 command_params.value_of("COMMAND").unwrap().as_bytes());
 }
