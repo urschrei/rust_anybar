@@ -5,19 +5,14 @@ extern crate clap;
 use clap::{Arg, App};
 
 fn socket(listen_on: SocketAddr) -> UdpSocket {
-    let attempt = UdpSocket::bind(listen_on);
-    let socket;
-    match attempt {
-        Ok(sock) => {
-            socket = sock;
-        }
+    match UdpSocket::bind(listen_on) {
+        Ok(sock) => sock,
         Err(err) => panic!("Could not bind: {}", err),
     }
-    socket
 }
 
 fn send_message(send_addr: SocketAddr, target: SocketAddr, data: &[u8]) {
-    let _ = socket(send_addr).send_to(data, target);
+    socket(send_addr).send_to(data, target).expect("Couldn't send message.");
 }
 
 fn main() {
