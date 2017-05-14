@@ -1,7 +1,7 @@
 [![](https://img.shields.io/crates/v/anybar_rs.svg)](https://crates.io/crates/anybar_rs) [![MIT Licensed](https://img.shields.io/github/license/mashape/apistatus.svg)](license.txt)  
 
 # Description
-`anybar_rs` is a command-line app for controlling the MacOS[Anybar](https://github.com/tonsky/AnyBar) application.
+`anybar_rs` is a command-line app for controlling the macOS [Anybar](https://github.com/tonsky/AnyBar) application.
 
 # Installation
 - Download the latest 64-bit or 32-bit version [here](https://github.com/urschrei/rust_anybar/releases/latest)
