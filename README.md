@@ -1,11 +1,14 @@
 [![](https://img.shields.io/crates/v/anybar_rs.svg)](https://crates.io/crates/anybar_rs) [![MIT Licensed](https://img.shields.io/github/license/mashape/apistatus.svg)](license.txt)  
 
 # Description
-`anybar_rs` is a command-line app for controlling the [Anybar](https://github.com/tonsky/AnyBar) application.
+`anybar_rs` is a command-line app for controlling the MacOS[Anybar](https://github.com/tonsky/AnyBar) application.
 
 # Installation
-- Install Rust and Cargo. Using [rustup.rs](https://www.rustup.rs) is the easiest way to do this
-- Run `cargo install anybar_rs`
+- Download the latest 64-bit or 32-bit version [here](https://github.com/urschrei/rust_anybar/releases/latest)
+    - unzip, then copy the binary into your `$PATH` (e.g. `/usr/local/bin`)
+- Alternatively:
+    - install Rust and Cargo. Using [rustup.rs](https://www.rustup.rs) is the easiest way to do this
+    - run `cargo install anybar_rs`
 - The binary should now be available to use. To check, run `anybar_rs --help`.
 
 # Building from Source
