@@ -21,6 +21,7 @@ main() {
     cross rustc --bin anybar_rs --target $TARGET --release -- -C lto
 
     # TODO Update this to package the right artifacts
+    strip target/$TARGET/release/anybar_rs
     cp target/$TARGET/release/anybar_rs $stage/
 
     cd $stage
