@@ -1,8 +1,6 @@
 // UDP stuff adapted from http://illegalargumentexception.blogspot.co.uk/2015/05/rust-send-and-receive-on-localhost-with.html
 use std::net::{Ipv4Addr, SocketAddr, SocketAddrV4, UdpSocket};
-#[macro_use]
-extern crate clap;
-use clap::{App, Arg};
+use clap::{App, Arg, crate_version, value_t};
 
 fn socket(listen_on: SocketAddr) -> UdpSocket {
     match UdpSocket::bind(listen_on) {
