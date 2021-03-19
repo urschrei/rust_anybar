@@ -28,12 +28,14 @@ fn main() {
         "black",
         "question",
         "exclamation",
+        "filled",
+        "hollow",
         "quit",
     ];
     let command_params = App::new("rust_anybar")
         .version(&crate_version!()[..])
         .author("Stephan Hügel <urschrei@gmail.com>")
-        .about("A Rust command-line client for Anybar")
+        .about("A Rust command-line client for Anybar 0.2.3")
         .args_from_usage(
             "-p --port=[PORT] 'Set destination UDP port. Input must be 0 – 65535, \
              and defaults to 17388",
