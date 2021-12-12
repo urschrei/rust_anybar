@@ -33,7 +33,7 @@ fn main() {
         "quit",
     ];
     let command_params = App::new("rust_anybar")
-        .version(&crate_version!()[..])
+        .version(crate_version!())
         .author("Stephan Hügel <urschrei@gmail.com>")
         .about("A Rust command-line client for Anybar 0.2.3")
         .args_from_usage(
