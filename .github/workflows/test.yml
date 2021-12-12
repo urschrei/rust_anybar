@@ -97,20 +97,10 @@ jobs:
           echo "Release name is $ASSET_NAME"
           echo "STAGE=$stage" >> $GITHUB_ENV
           echo "ASSET_NAME=$ASSET_NAME" >> $GITHUB_ENV
-          if [ "$RUNNER_OS" == "Linux" ]; then
-            echo "TYPE=tar" >> $GITHUB_ENV
-            echo "EXTENSION=tar.gz" >> $GITHUB_ENV
-            cp target/${{ matrix.target }}/release/* $stage/
-          fi
           if [ "$RUNNER_OS" == "macOS" ]; then
             echo "TYPE=tar" >> $GITHUB_ENV
             echo "EXTENSION=tar.gz" >> $GITHUB_ENV
-            cp target/${{ matrix.target }}/release/* $stage/
-          fi
-          if [ "$RUNNER_OS" == "Windows" ]; then
-            echo "TYPE=zip" >> $GITHUB_ENV
-            echo "EXTENSION=zip" >> $GITHUB_ENV
-            cp target/${{ matrix.target }}/release/* $stage/
+            cp target/${{ matrix.target }}/release/anybar_rs $stage/
           fi
           ls $stage
           cd $src
