@@ -1,5 +1,5 @@
 // UDP stuff adapted from http://illegalargumentexception.blogspot.co.uk/2015/05/rust-send-and-receive-on-localhost-with.html
-use clap::{crate_version, value_t, App, Arg};
+use clap::{arg, crate_version, App, Arg};
 use std::net::{Ipv4Addr, SocketAddr, SocketAddrV4, UdpSocket};
 
 fn socket(listen_on: SocketAddr) -> UdpSocket {
@@ -36,12 +36,13 @@ fn main() {
         .version(crate_version!())
         .author("Stephan Hügel <urschrei@gmail.com>")
         .about("A Rust command-line client for Anybar 0.2.3")
-        .args_from_usage(
-            "-p --port=[PORT] 'Set destination UDP port. Input must be 0 – 65535, \
-             and defaults to 17388",
+        .arg(
+            arg!(-p --port <PORT> "Set destination UDP port. Input must be 0 – 65535")
+                .default_value("1738")
+                .required(false),
         )
         .arg(
-            Arg::with_name("COMMAND")
+            Arg::new("COMMAND")
                 .help("The command you wish to send to Anybar")
                 .index(1)
                 .possible_values(&command_vals)
@@ -49,7 +50,7 @@ fn main() {
         )
         .get_matches();
     // bind to the correct UDP port
-    let numeric_port = value_t!(command_params.value_of("PORT"), u16).unwrap_or(1738);
+    let numeric_port: u16 = command_params.value_of_t("PORT").unwrap();
     // and send our message
     send_message(
         SocketAddr::V4(SocketAddrV4::new(Ipv4Addr::new(127, 0, 0, 1), 0)),

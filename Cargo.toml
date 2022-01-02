@@ -1,16 +1,16 @@
 [package]
 name = "anybar_rs"
-version = "1.0.18"
+version = "1.0.19"
 authors = ["Stephan Hügel <urschrei@gmail.com>"]
 description = "A Rust application for controlling Anybar 0.2.3"
 repository = "https://github.com/urschrei/rust_anybar"
 readme = "README.md"
 keywords = ["Anybar"]
 license = "MIT"
-edition = "2018"
+edition = "2021"
 
 [dependencies]
-clap = "2.34.0"
+clap = { version = "3.0.0", features = ["cargo"] }
 
 [profile.release]
 lto = true
