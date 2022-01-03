@@ -10,7 +10,7 @@ license = "MIT"
 edition = "2018"
 
 [dependencies]
-clap = "2.34.0"
+clap = "3.0.0"
 
 [profile.release]
 lto = true
