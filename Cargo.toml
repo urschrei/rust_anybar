@@ -10,7 +10,7 @@ license = "MIT"
 edition = "2021"
 
 [dependencies]
-clap = { version = "3.0.0", features = ["cargo"] }
+clap = { version = "4.0.15", features = ["cargo"] }
 
 [profile.release]
 lto = true
