@@ -45,7 +45,7 @@ fn main() {
             Arg::new("COMMAND")
                 .help("The command you wish to send to Anybar")
                 .index(1)
-                .possible_values(&command_vals)
+                .possible_values(command_vals)
                 .required(true),
         )
         .get_matches();
