@@ -1,6 +1,6 @@
 [package]
 name = "anybar_rs"
-version = "1.0.19"
+version = "1.1.0"
 authors = ["Stephan Hügel <urschrei@gmail.com>"]
 description = "A Rust application for controlling Anybar 0.2.3"
 repository = "https://github.com/urschrei/rust_anybar"
