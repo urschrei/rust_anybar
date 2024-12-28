@@ -1,6 +1,6 @@
 [package]
 name = "anybar_rs"
-version = "1.1.0"
+version = "1.1.1"
 authors = ["Stephan Hügel <urschrei@gmail.com>"]
 description = "A Rust application for controlling Anybar 0.2.3"
 repository = "https://github.com/urschrei/rust_anybar"
@@ -15,5 +15,23 @@ clap = { version = "4.5.0", features = ["cargo"] }
 [profile.release]
 lto = true
 
+# The profile that 'cargo dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"
+
 [[bin]]
 name = "anybar_rs"
+
+# Config for 'cargo dist'
+[workspace.metadata.dist]
+# The preferred cargo-dist version to use in CI (Cargo.toml SemVer syntax)
+cargo-dist-version = "0.13.3"
+# CI backends to support
+ci = ["github"]
+# The installers to generate for each app
+installers = []
+# Target platforms to build apps for (Rust target-triple syntax)
+targets = ["aarch64-apple-darwin", "x86_64-apple-darwin", "x86_64-unknown-linux-gnu", "x86_64-pc-windows-msvc"]
+# Publish jobs to run in CI
+pr-run-mode = "skip"
